@@ -16,5 +16,6 @@ For more information about the services I offer for your website needs, please c
 ### See site below ###
 
 https://github.com/MikeWentForth/Daily-Planner
+<img width="1470" alt="Screenshot 2023-07-19 at 9 34 10 AM" src="https://github.com/MikeWentForth/Daily-Planner/assets/132107748/9b11b53b-f81c-403e-b3c7-e5514bf3e4b5">
 
 
