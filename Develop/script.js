@@ -4,9 +4,6 @@
 
 // Create an array with empty strings for each hour, 9-17
 let entries = [];
-for (let i=9; i<=17; i++) {
-  entries.push("");
-}
 
 
 $(function () {
@@ -29,10 +26,11 @@ $(function () {
 // Pulls the text from the textarea, then passes it to be saved to localstage
 function getText() {
   let index = parseInt(this.id); // Convert index from string to int so we can use it to access our array of textarea
-  let textAreaArray = document.getElementsByTagName("textarea");
-  let entry = textAreaArray[index].value;
+  console.log(`Attempting to get info from row ${index}.`);
+  textAreaArray = document.getElementsByTagName("textarea"); // get all textarea items
+  let entry = textAreaArray[index].value; // get the text from the target textarea
   entry = entry.trim(); // Remove extra spaces from end of entry
-  entries[index] = text; // Store the new text entry in our entries array
+  entries[index] = entry; // Store the new text entry in our entries array
   localStorage.setItem("entries",JSON.stringify(entries)); // Save entries array to localStorage as JSON
   console.log("Saved to index " + index);
 }
@@ -86,13 +84,16 @@ function loadEntries() {
     // Get entries object from localstorage
     let temp = localStorage.getItem("entries");
 
-    // On first run, there might be nothing in localstorage.
-    // Need to account for this condition.
-    // Easy solution is try/catch
-
     // Use JSON parse to convert it to the entries array here
     // ["dog","cat",1] -> an array object in JS
     entries = JSON.parse(temp); // An array of 8 text entries
+
+    if (entries == null) {
+      entries = [];
+      for (let i=9; i<=17; i++) {
+        entries.push("");
+      }
+    }
 
     // Update the text areas in the web page with the entries
     let textAreaArray = document.getElementsByTagName("textarea");
@@ -106,6 +107,10 @@ function loadEntries() {
     // Do nothing.
     console.log("Unable to read from localstorage.");
     console.log(error);
+    entries = [];
+    for (let i=9; i<=17; i++) {
+      entries.push("");
+    }
   }
 
 }
