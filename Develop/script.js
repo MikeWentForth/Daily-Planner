@@ -82,19 +82,30 @@ function updatePage() {
 
 function loadEntries() {
 
-  // Get entries object from localstorage
-  let temp = localStorage.getItem("entries");
+  try {
+    // Get entries object from localstorage
+    let temp = localStorage.getItem("entries");
 
-  // Use JSON parse to convert it to the entries array here
-  // ["dog","cat",1] -> an array object in JS
-  entries = JSON.parse(temp); // An array of 8 text entries
+    // On first run, there might be nothing in localstorage.
+    // Need to account for this condition.
+    // Easy solution is try/catch
 
-  // Update the text areas in the web page with the entries
-  let textAreaArray = document.getElementsByTagName("textarea");
-  
-  // Loop through the array
-  for (let i=0; i<textAreaArray.length; i++) {
-    textAreaArray[i].value = entries[i];
+    // Use JSON parse to convert it to the entries array here
+    // ["dog","cat",1] -> an array object in JS
+    entries = JSON.parse(temp); // An array of 8 text entries
+
+    // Update the text areas in the web page with the entries
+    let textAreaArray = document.getElementsByTagName("textarea");
+    
+    // Loop through the array
+    for (let i=0; i<textAreaArray.length; i++) {
+      textAreaArray[i].value = entries[i];
+    }
+  } catch (error) {
+    // Something went wrong during the localstorage read.
+    // Do nothing.
+    console.log("Unable to read from localstorage.");
+    console.log(error);
   }
 
 }
